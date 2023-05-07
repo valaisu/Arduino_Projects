@@ -1,11 +1,12 @@
 // Map notes with their frequencies based on
 // https://pages.mtu.edu/~suits/notefreqs.html
-//              a    b    c    d    e    f    g    A  ?=Bb   B    C
-int freqs[] = {196, 220, 262, 294, 330, 349, 392, 440, 466, 494, 523}; 
-String frMap = "abcdefgA?BC";
+//              g    a    b    c    d    e    f    g    A  ?=Bb   B    C
+int freqs[] = {196, 220, 247, 262, 294, 330, 349, 392, 440, 466, 494, 523};
+String frMap = "GabcdefgA?BC";
 int tempo = 20;
+int switchState;
 
-// Plays the start from "Pirates of the Caribbean" roughly according to
+// Plays the beginning from "Pirates of the Caribbean" roughly according to
 // https://www.youtube.com/watch?v=DmpJfK70dgg
 
 
@@ -29,75 +30,81 @@ int timeIntro[] = {8,  4,  8,  4,  8,  4,  4,  4,  4,  8,  4,  8,  4,  8,  4};
 int i;
 
 void setup() {
-  pinMode(8, OUTPUT);
+  pinMode(2, OUTPUT);
+  pinMode(A5, INPUT);
 }
 
 void loop() {
 
+  // check if the button pressed
+  switchState = analogRead(A5);
+  if (switchState == LOW) {
+    //pass
+  } else {
+
   //intro
   for (i = 0; i < 15; i++) {
-    tone(8, freqs[frMap.indexOf(intro[i])], timeIntro[i]*tempo);
+    tone(2, freqs[frMap.indexOf(intro[i])], timeIntro[i]*tempo);
     delay(timeIntro[i]*2*tempo);
-  } 
+  }
 
   // first half of song
   for (i = 0; i < sizeof(song0); i++) {
-    tone(8, freqs[frMap.indexOf(song0[i])], time0[i]*tempo);
+    tone(2, freqs[frMap.indexOf(song0[i])], time0[i]*tempo);
     delay(time0[i]*2*tempo);
-  } 
+  }
 
   delay(15*tempo);
 
   for (i = 0; i < sizeof(song1); i++) {
-    tone(8, freqs[frMap.indexOf(song1[i])], time1[i]*tempo);
+    tone(2, freqs[frMap.indexOf(song1[i])], time1[i]*tempo);
     delay(time1[i]*2*tempo);
-  } 
+  }
 
   delay(30*tempo);
 
   for (i = 0; i < sizeof(song2); i++) {
-    tone(8, freqs[frMap.indexOf(song2[i])], time2[i]*tempo);
+    tone(2, freqs[frMap.indexOf(song2[i])], time2[i]*tempo);
     delay(time2[i]*2*tempo);
-  } 
+  }
 
   delay(15*tempo);
 
   for (i = 0; i < sizeof(song3); i++) {
-    tone(8, freqs[frMap.indexOf(song3[i])], time3[i]*tempo);
+    tone(2, freqs[frMap.indexOf(song3[i])], time3[i]*tempo);
     delay(time3[i]*2*tempo);
-  } 
-g
+  }
+
   delay(tempo*15);
 
 
-  // second half of song, mostly same identical to first one, 
+  // second half of song, mostly same identical to first one,
   // except this is from higher octave
 
   for (i = 0; i < sizeof(song0); i++) {
-    tone(8, freqs[frMap.indexOf(song0[i])]*2, time0[i]*tempo);
+    tone(2, freqs[frMap.indexOf(song0[i])]*2, time0[i]*tempo);
     delay(time0[i]*2*tempo);
-  } 
+  }
 
   delay(tempo*15);
 
   for (i = 0; i < sizeof(song1); i++) {
-    tone(8, freqs[frMap.indexOf(song1[i])]*2, time1[i]*tempo);
+    tone(2, freqs[frMap.indexOf(song1[i])]*2, time1[i]*tempo);
     delay(time1[i]*2*tempo);
-  } 
+  }
 
   delay(30*tempo);
 
   for (i = 0; i < sizeof(song2); i++) {
-    tone(8, freqs[frMap.indexOf(song2[i])]*2, time2[i]*tempo);
+    tone(2, freqs[frMap.indexOf(song2[i])]*2, time2[i]*tempo);
     delay(time2[i]*2*tempo);
-  } 
+  }
 
   delay(15*tempo);
 
   for (i = 0; i < sizeof(songEnd); i++) {
-    tone(8, freqs[frMap.indexOf(songEnd[i])]*2, timeEnd[i]*tempo);
+    tone(2, freqs[frMap.indexOf(songEnd[i])]*2, timeEnd[i]*tempo);
     delay(timeEnd[i]*2*tempo);
-  } 
-
-  delay(8000);
+  }
+  }
 }
